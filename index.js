@@ -2,17 +2,23 @@ const express = require('express')
 const path = require('path')
 const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000
+const request = require('request')
 
+// const app = express()
+//   .use(express.static(path.join(__dirname, 'public')))
+//   .use(bodyParser.json())
+//   .set('views', path.join(__dirname, 'views'))
+//   .set('view engine', 'ejs')
+//   .get('/', (req, res) => res.render('pages/index'))
+//   .listen(PORT, () => console.log(`webhook is listening Listening on ${ PORT }`));
 
 const app = express().use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs');
 
-'use strict';
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
-// Imports dependencies and set up http server
 
 
 // Accepts POST requests at /webhook endpoint
@@ -166,5 +172,7 @@ function callSendAPI(sender_psid, response) {
     }
   }); 
 }
+
+app.get('/', (req, res) => res.render('pages/index'))
 
 app.listen(PORT, () => console.log(`webhook is listening Listening on ${ PORT }`));
